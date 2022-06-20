@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+button {
+    @apply bg-orange-400 text-red-900 rounded-xl w-[10rem]
+}
+
+input {
+    @apply border-orange-400 border-4 rounded-xl w-[20rem]
+}

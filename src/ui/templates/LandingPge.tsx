@@ -68,6 +68,7 @@ export const LandingPge = () => {
             <h3 className={css.messages}>{messages}</h3>
           </>
         )}
+        <p>by: 21st Century</p>
       </Card>
     </Layout>
   );

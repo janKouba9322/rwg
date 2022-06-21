@@ -6,7 +6,10 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <meta name="description" content="RANDOM" />
+        <meta
+          name="description"
+          content="Generate and create your own RANDOM words"
+        />
         <title>Random word generator</title>
       </Head>
       <LandingPge />

@@ -13,7 +13,7 @@ export const LandingPge = () => {
   const [messages, setMessages] = useState("");
   useEffect(() => {
     const fetchData = async () => {
-      await setLoader(true);
+      await setLoader(false);
       await getItems();
     };
     return () => {

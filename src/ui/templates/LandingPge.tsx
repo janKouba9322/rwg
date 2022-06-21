@@ -28,7 +28,20 @@ export const LandingPge = () => {
     setMessages("");
     console.log(items);
   };
-  //do
+  const addDoc = async () => {
+    if (newWord !== "") {
+      await setDoc(doc(db, "words", `${newWord}`), {
+        word: newWord,
+        id: uuidv4(),
+      });
+
+      setNewWord("");
+      location.reload();
+    } else {
+      setMessages("No letters!");
+    }
+  };
+
   return (
     <Layout>
       <Card>
@@ -52,25 +65,10 @@ export const LandingPge = () => {
               maxLength={51}
               id="wordInput"
               placeholder="type word you wanna create"
+              onKeyPress={(e) => e.key == " " && addDoc()}
             ></input>
             <br />
-            <button
-              onClick={async () => {
-                if (newWord !== "") {
-                  await setDoc(doc(db, "words", `${newWord}`), {
-                    word: newWord,
-                    id: uuidv4(),
-                  });
-
-                  setNewWord("");
-                  location.reload();
-                } else {
-                  setMessages("No letters!");
-                }
-              }}
-            >
-              create word
-            </button>
+            <button onClick={() => addDoc()}>create word</button>
             <h2>Number of words: {items.length}</h2>
             <h3 className={css.messages}>{messages}</h3>
           </>

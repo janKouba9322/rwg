@@ -65,7 +65,10 @@ export const LandingPge = () => {
               maxLength={51}
               id="wordInput"
               placeholder="type word you wanna create"
-              onKeyPress={(e) => e.key == " " && addDoc()}
+              onKeyPress={(e) => e.key === "Enter" && addDoc()}
+              onKeyUp={(e) =>
+                e.code === "Space" && setMessages("spaces are disabled")
+              }
             ></input>
             <br />
             <button onClick={() => addDoc()}>create word</button>

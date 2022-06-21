@@ -54,7 +54,7 @@ export const LandingPge = () => {
               type="search"
               value={newWord}
               onChange={(e) => {
-                setNewWord(e.target.value.trim());
+                setNewWord(e.target.value.replace(/\s/g, ""));
                 if (newWord.length >= 49) {
                   setMessages("max number characters is 50");
                 } else {

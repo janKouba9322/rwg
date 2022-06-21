@@ -67,7 +67,8 @@ export const LandingPge = () => {
               placeholder="type word you wanna create"
               onKeyPress={(e) => e.key === "Enter" && addDoc()}
               onKeyUp={(e) =>
-                e.code === "Space" && setMessages("spaces are disabled")
+                e.code === "Space" &&
+                setMessages("have you ever seen space in a word?")
               }
             ></input>
             <br />

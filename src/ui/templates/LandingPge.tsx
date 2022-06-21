@@ -26,7 +26,6 @@ export const LandingPge = () => {
   const handleClick = async () => {
     setData(`${items[Math.floor(Math.random() * items.length)]}`);
     setMessages("");
-    console.log(items);
   };
   const addDoc = async () => {
     if (newWord !== "") {

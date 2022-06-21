@@ -43,6 +43,7 @@ export const LandingPge = () => {
               onChange={(e) => {
                 setNewWord(e.target.value.trim());
               }}
+              maxLength={15}
               id="wordInput"
               placeholder="type word you wanna create"
             ></input>

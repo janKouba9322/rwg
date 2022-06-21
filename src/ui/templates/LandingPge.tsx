@@ -55,7 +55,7 @@ export const LandingPge = () => {
               value={newWord}
               onChange={(e) => {
                 setNewWord(e.target.value.trim());
-                if (newWord.length >= 50) {
+                if (newWord.length >= 49) {
                   setMessages("max number characters is 50");
                 } else {
                   setMessages("");
@@ -66,7 +66,7 @@ export const LandingPge = () => {
                 setMessages("pasting disabled");
                 return false;
               }}
-              maxLength={51}
+              maxLength={50}
               id="wordInput"
               placeholder="type word you wanna create"
               onKeyPress={(e) => e.key === "Enter" && addDoc()}

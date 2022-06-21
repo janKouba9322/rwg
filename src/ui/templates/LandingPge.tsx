@@ -13,20 +13,20 @@ export const LandingPge = () => {
   const [messages, setMessages] = useState("");
   useEffect(() => {
     const fetchData = async () => {
-      await setLoader(false);
+      await setLoader(true);
       await getItems();
     };
-    return () => {
-      fetchData()
-        .catch(console.error)
-        .then(() => {
-          setLoader(false);
-        });
-    };
+
+    fetchData()
+      .catch(console.error)
+      .then(() => {
+        setLoader(false);
+      });
   }, []);
   const handleClick = async () => {
     setData(`${items[Math.floor(Math.random() * items.length)]}`);
     setMessages("");
+    console.log(items);
   };
   return (
     <Layout>

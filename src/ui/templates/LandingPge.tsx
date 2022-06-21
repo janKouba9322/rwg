@@ -61,6 +61,11 @@ export const LandingPge = () => {
                   setMessages("");
                 }
               }}
+              onPaste={(e: any) => {
+                e.preventDefault();
+                setMessages("pasting disabled");
+                return false;
+              }}
               maxLength={51}
               id="wordInput"
               placeholder="type word you wanna create"

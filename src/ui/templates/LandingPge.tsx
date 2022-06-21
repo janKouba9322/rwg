@@ -42,11 +42,13 @@ export const LandingPge = () => {
               value={newWord}
               onChange={(e) => {
                 setNewWord(e.target.value.trim());
-                if (newWord.length === 50) {
-                  setMessages("max characters is 50");
+                if (newWord.length >= 50) {
+                  setMessages("max number characters is 50");
+                } else {
+                  setMessages("");
                 }
               }}
-              maxLength={50}
+              maxLength={51}
               id="wordInput"
               placeholder="type word you wanna create"
             ></input>

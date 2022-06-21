@@ -7,6 +7,7 @@ const Home: NextPage = () => {
     <>
       <Head>
         <meta name="description" content="RANDOM" />
+        <title>Random word generator</title>
       </Head>
       <LandingPge />
     </>

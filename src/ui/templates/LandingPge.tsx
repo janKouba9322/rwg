@@ -9,7 +9,7 @@ import css from "./LandingPage.module.css";
 export const LandingPge = () => {
   const [data, setData] = useState("");
   const [newWord, setNewWord] = useState("");
-  const [loader, setLoader] = useState(true);
+  const [loader, setLoader] = useState(false);
   const [messages, setMessages] = useState("");
   useEffect(() => {
     const fetchData = async () => {

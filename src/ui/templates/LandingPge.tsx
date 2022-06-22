@@ -12,6 +12,12 @@ export const LandingPge = () => {
   const [loader, setLoader] = useState(false);
   const [messages, setMessages] = useState("");
   useEffect(() => {
+    if (newWord.length >= 50) {
+      setMessages("max number of characters is 50");
+    }
+  }, [newWord]);
+
+  useEffect(() => {
     const fetchData = async () => {
       await setLoader(true);
       await getItems();
@@ -55,11 +61,7 @@ export const LandingPge = () => {
               value={newWord}
               onChange={(e) => {
                 setNewWord(e.target.value.replace(/\s/g, ""));
-                if (newWord.length >= 49) {
-                  setMessages("max number characters is 50");
-                } else {
-                  setMessages("");
-                }
+                setMessages("");
               }}
               onPaste={(e: any) => {
                 e.preventDefault();

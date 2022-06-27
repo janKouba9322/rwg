@@ -16,6 +16,7 @@ export const LandingPge = () => {
   const [messages, setMessages] = useState("");
   const [author, setAuthor] = useState("");
   const [creatingLoader, setCreatingLoader] = useState(false);
+  const [refreshingLoader, setRefreshingLoader] = useState(false);
   useEffect(() => {
     if (newWord.length >= 50) {
       setMessages("the maximum number of characters in a word is 50");
@@ -67,64 +68,77 @@ export const LandingPge = () => {
     <Layout>
       <Card>
         <h1>Get random word</h1>
-        {creatingLoader === false && loader === true && <p>Loading...</p>}
-        {loader === false && creatingLoader === false && (
-          <>
-            <button onClick={handleClick}>get</button>
-            {data.word !== "" && (
-              <h1>
-                <span>{data.word}</span>
-              </h1>
-            )}
-            {data.author !== "" && (
-              <h2>
-                Created by: <span>{data.author}</span>
-              </h2>
-            )}
+        {creatingLoader === false &&
+          loader === true &&
+          refreshingLoader === false && <p>Loading...</p>}
+        {loader === false &&
+          creatingLoader === false &&
+          refreshingLoader === false && (
+            <>
+              <button onClick={handleClick}>get</button>
+              {data.word !== "" && (
+                <h1>
+                  <span>{data.word}</span>
+                </h1>
+              )}
+              {data.author !== "" && (
+                <h2>
+                  Created by: <span>{data.author}</span>
+                </h2>
+              )}
 
-            <input
-              type="text"
-              value={newWord}
-              onChange={(e) => {
-                setNewWord(e.target.value.replace(/\s/g, ""));
-                setNewWord(
-                  e.target.value.charAt(0).toUpperCase() +
-                    e.target.value.slice(1)
-                );
-                setMessages("");
-              }}
-              onPaste={(e: any) => {
-                e.preventDefault();
-                setMessages("pasting disabled");
-                return false;
-              }}
-              onKeyPress={(e) => e.key === "Enter" && addDoc()}
-              maxLength={50}
-              id="wordInput"
-              placeholder="type word you wanna create"
-              onKeyUp={(e) =>
-                e.code === "Space" &&
-                setMessages("have you ever seen a gap in a word?")
-              }
-            />
+              <input
+                type="text"
+                value={newWord}
+                onChange={(e) => {
+                  setNewWord(e.target.value.replace(/\s/g, ""));
+                  setNewWord(
+                    e.target.value.charAt(0).toUpperCase() +
+                      e.target.value.slice(1)
+                  );
+                  setMessages("");
+                }}
+                onPaste={(e: any) => {
+                  e.preventDefault();
+                  setMessages("pasting disabled");
+                  return false;
+                }}
+                onKeyPress={(e) => e.key === "Enter" && addDoc()}
+                maxLength={50}
+                id="wordInput"
+                placeholder="type word you wanna create"
+                onKeyUp={(e) =>
+                  e.code === "Space" &&
+                  setMessages("have you ever seen a gap in a word?")
+                }
+              />
 
-            <input
-              value={author}
-              placeholder="your nickname..."
-              onChange={(e) => {
-                setAuthor(e.target.value.trim());
-                setMessages("");
-              }}
-              onKeyPress={(e) => e.key === "Enter" && addDoc()}
-              maxLength={30}
-            />
-            <br />
-            <button onClick={() => addDoc()}>create word</button>
-            <h2>Number of words: {items.length}</h2>
-            <h3 className={css.messages}>{messages}</h3>
-          </>
-        )}
+              <input
+                value={author}
+                placeholder="your nickname..."
+                onChange={(e) => {
+                  setAuthor(e.target.value.trim());
+                  setMessages("");
+                }}
+                onKeyPress={(e) => e.key === "Enter" && addDoc()}
+                maxLength={30}
+              />
+              <br />
+              <button onClick={() => addDoc()}>create word</button>
+              <h2>Number of words: {items.length}</h2>
+              <h3 className={css.messages}>{messages}</h3>
+              <button
+                onClick={async () => {
+                  await setRefreshingLoader(true);
+                  location.reload();
+                }}
+              >
+                Refresh
+              </button>
+            </>
+          )}
         {creatingLoader === true && <p>Creating...</p>}
+        {refreshingLoader === true && <p>Refreshing...</p>}
         <p>by: 21st Century</p>
       </Card>
     </Layout>

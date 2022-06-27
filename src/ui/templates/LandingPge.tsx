@@ -114,6 +114,7 @@ export const LandingPge = () => {
               placeholder="your nickname..."
               onChange={(e) => {
                 setAuthor(e.target.value.trim());
+                setMessages("");
               }}
               onKeyPress={(e) => e.key === "Enter" && addDoc()}
               maxLength={30}

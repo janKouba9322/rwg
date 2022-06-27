@@ -24,7 +24,7 @@ export async function getItems() {
   const querySnapshot = await getDocs(collection(db, "words"));
   const w = () => {
     querySnapshot.forEach((doc) => {
-      items.push(doc.data().word);
+      items.push(doc.data());
     });
   };
   w();

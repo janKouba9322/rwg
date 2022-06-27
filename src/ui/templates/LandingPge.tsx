@@ -7,10 +7,15 @@ import { Layout } from "../layouts/Layout";
 import css from "./LandingPage.module.css";
 
 export const LandingPge = () => {
-  const [data, setData] = useState("");
+  const [data, setData] = useState({
+    author: "",
+    word: "",
+  });
   const [newWord, setNewWord] = useState("");
   const [loader, setLoader] = useState(false);
   const [messages, setMessages] = useState("");
+  const [author, setAuthor] = useState("");
+  const [word, setWord] = useState("");
   useEffect(() => {
     if (newWord.length >= 50) {
       setMessages("max number of characters is 50");
@@ -30,19 +35,26 @@ export const LandingPge = () => {
       });
   }, []);
   const handleClick = async () => {
-    setData(`${items[Math.floor(Math.random() * items.length)]}`);
+    setData(items[Math.floor(Math.random() * items.length)]);
+    setAuthor(data.author);
     setMessages("");
+    console.log(items);
   };
   const addDoc = async () => {
-    if (newWord !== "") {
+    if (newWord !== "" && author !== "") {
       await setDoc(doc(db, "words", `${newWord}`), {
         word: newWord,
+        author: author,
         id: uuidv4(),
       });
 
       setNewWord("");
       location.reload();
-    } else {
+    }
+    if (author === "") {
+      setMessages("Your nick also need letters");
+    }
+    if (newWord === "") {
       setMessages("No letters!");
     }
   };
@@ -55,9 +67,19 @@ export const LandingPge = () => {
         {loader === false && (
           <>
             <button onClick={handleClick}>get</button>
-            <h1>{data}</h1>
+            {data.word !== "" && (
+              <h1>
+                <span>{data.word}</span>
+              </h1>
+            )}
+            {data.author !== "" && (
+              <h2>
+                Created by: <span>{data.author}</span>
+              </h2>
+            )}
+
             <input
-              type="search"
+              type="text"
               value={newWord}
               onChange={(e) => {
                 setNewWord(e.target.value.replace(/\s/g, ""));
@@ -71,12 +93,19 @@ export const LandingPge = () => {
               maxLength={50}
               id="wordInput"
               placeholder="type word you wanna create"
-              onKeyPress={(e) => e.key === "Enter" && addDoc()}
               onKeyUp={(e) =>
                 e.code === "Space" &&
                 setMessages("have you ever seen space in a word?")
               }
-            ></input>
+            />
+
+            <input
+              placeholder="your nickname..."
+              onChange={(e) => {
+                setAuthor(e.target.value.trim());
+              }}
+              onKeyPress={(e) => e.key === "Enter" && addDoc()}
+            />
             <br />
             <button onClick={() => addDoc()}>create word</button>
             <h2>Number of words: {items.length}</h2>

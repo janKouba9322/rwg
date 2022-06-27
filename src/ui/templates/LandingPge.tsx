@@ -12,10 +12,10 @@ export const LandingPge = () => {
     word: "",
   });
   const [newWord, setNewWord] = useState("");
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
   const [messages, setMessages] = useState("");
   const [author, setAuthor] = useState("");
-  const [word, setWord] = useState("");
+  const [creatingLoader, setCreatingLoader] = useState(false);
   useEffect(() => {
     if (newWord.length >= 50) {
       setMessages("max number of characters is 50");
@@ -36,7 +36,6 @@ export const LandingPge = () => {
   }, []);
   const handleClick = async () => {
     setData(items[Math.floor(Math.random() * items.length)]);
-    setAuthor(data.author);
     setMessages("");
     console.log(items);
   };
@@ -49,13 +48,15 @@ export const LandingPge = () => {
       });
 
       setNewWord("");
+      setAuthor("");
+      await setCreatingLoader(true);
       location.reload();
     }
     if (author === "") {
-      setMessages("Your nick also need letters");
+      setMessages("Your nick also needs letters");
     }
     if (newWord === "") {
-      setMessages("No letters!");
+      setMessages("Your word has no letters! This is not how it works!");
     }
   };
 
@@ -63,8 +64,8 @@ export const LandingPge = () => {
     <Layout>
       <Card>
         <h1>Get random word</h1>
-        {loader === true && <p>Loading...</p>}
-        {loader === false && (
+        {creatingLoader === false && loader === true && <p>Loading...</p>}
+        {loader === false && creatingLoader === false && (
           <>
             <button onClick={handleClick}>get</button>
             {data.word !== "" && (
@@ -95,11 +96,12 @@ export const LandingPge = () => {
               placeholder="type word you wanna create"
               onKeyUp={(e) =>
                 e.code === "Space" &&
-                setMessages("have you ever seen space in a word?")
+                setMessages("have you ever seen a gap in a word?")
               }
             />
 
             <input
+              value={author}
               placeholder="your nickname..."
               onChange={(e) => {
                 setAuthor(e.target.value.trim());
@@ -112,6 +114,7 @@ export const LandingPge = () => {
             <h3 className={css.messages}>{messages}</h3>
           </>
         )}
+        {creatingLoader === true && <p>Creating...</p>}
         <p>by: 21st Century</p>
       </Card>
     </Layout>

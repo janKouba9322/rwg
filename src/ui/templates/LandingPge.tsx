@@ -18,9 +18,14 @@ export const LandingPge = () => {
   const [creatingLoader, setCreatingLoader] = useState(false);
   useEffect(() => {
     if (newWord.length >= 50) {
-      setMessages("max number of characters is 50");
+      setMessages("the maximum number of characters in a word is 50");
     }
   }, [newWord]);
+  useEffect(() => {
+    if (author.length >= 30) {
+      setMessages("the maximum number of characters in a nickname is 30");
+    }
+  }, [author]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +51,6 @@ export const LandingPge = () => {
         author: author,
         id: uuidv4(),
       });
-
       setNewWord("");
       setAuthor("");
       await setCreatingLoader(true);
@@ -84,6 +88,10 @@ export const LandingPge = () => {
               value={newWord}
               onChange={(e) => {
                 setNewWord(e.target.value.replace(/\s/g, ""));
+                setNewWord(
+                  e.target.value.charAt(0).toUpperCase() +
+                    e.target.value.slice(1)
+                );
                 setMessages("");
               }}
               onPaste={(e: any) => {
@@ -91,6 +99,7 @@ export const LandingPge = () => {
                 setMessages("pasting disabled");
                 return false;
               }}
+              onKeyPress={(e) => e.key === "Enter" && addDoc()}
               maxLength={50}
               id="wordInput"
               placeholder="type word you wanna create"
@@ -107,6 +116,7 @@ export const LandingPge = () => {
                 setAuthor(e.target.value.trim());
               }}
               onKeyPress={(e) => e.key === "Enter" && addDoc()}
+              maxLength={30}
             />
             <br />
             <button onClick={() => addDoc()}>create word</button>

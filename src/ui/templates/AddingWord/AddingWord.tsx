@@ -64,7 +64,6 @@ export const AddingWord = () => {
               setMessages("pasting disabled");
               return false;
             }}
-            onKeyPress={(e) => e.key === "Enter" && addDoc()}
             maxLength={50}
             id="wordInput"
             placeholder="type word you wanna create"

@@ -1,3 +1,4 @@
 .container {
-    @apply w-[20rem] h-[20rem] flex justify-center flex-col items-center gap-4
+    @apply w-[20rem] h-screen text-center flex-col items-center gap-10
 }
+

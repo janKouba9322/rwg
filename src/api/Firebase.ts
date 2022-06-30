@@ -23,9 +23,11 @@ const items: any[] = [];
 export async function getItems() {
   const querySnapshot = await getDocs(collection(db, "words"));
   const w = () => {
-    querySnapshot.forEach((doc) => {
-      items.push(doc.data());
-    });
+    if (items.length === 0) {
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data());
+      });
+    }
   };
   w();
 }

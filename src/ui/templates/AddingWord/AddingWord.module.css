@@ -1,0 +1,32 @@
+.container {
+    @apply flex flex-col items-center gap-5
+}
+
+.messages {
+    @apply text-red-500 mb-1 ml-2
+}
+
+.description {
+    @apply desktop:w-[200%] h-[200px] resize-none bg-[#f8f8f8] rounded border-2 border-[#ccc] py-[12px] px-[20px]
+}
+
+.title {
+    @apply text-[2rem]
+}
+
+.input {
+    @apply border-red-300 border-2 rounded-lg desktop:w-[30rem] p-1 w-[20rem]
+}
+
+.addWordButton {
+    @apply text-white bg-red-300 h-[3rem] w-[10rem] text-[1.2rem];
+    @apply hover:text-red-300 hover:bg-red-100 ease-in-out duration-150
+}
+
+.messageBox {
+    @apply h-[5rem] w-[40rem] border-2 border-red-500 bg-red-100 flex items-center p-2
+}
+
+.backButton {
+    @apply h-[2rem] w-[6rem] bg-red-300 text-white m-2 rounded hover:opacity-[70%]
+}

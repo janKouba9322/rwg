@@ -1,0 +1,18 @@
+
+.container {
+    @apply flex flex-col items-center gap-6 mb-[1rem]
+}
+
+.btn {
+    @apply bg-red-300 text-white rounded-xl w-[10rem] h-[4rem];
+    @apply hover:opacity-80 ease-in-out duration-300
+}
+
+.title {
+    @apply m-[1.5rem] font-bold text-[2rem]
+}
+
+.randomWord {
+    @apply text-[2rem];
+    word-break: break-all;
+}

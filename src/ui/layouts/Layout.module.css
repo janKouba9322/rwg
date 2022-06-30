@@ -1,3 +1,4 @@
 .container {
-    @apply w-screen h-screen flex justify-center items-center;
+    @apply w-screen h-screen flex flex-col items-center;
 }
+

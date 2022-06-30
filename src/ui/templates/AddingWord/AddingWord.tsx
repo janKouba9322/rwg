@@ -90,11 +90,9 @@ export const AddingWord = () => {
             className={css.description}
           />
           <br />
-          <Link href="/">
-            <button onClick={() => addDoc()} className={css.addWordButton}>
-              create word
-            </button>
-          </Link>
+          <button onClick={() => addDoc()} className={css.addWordButton}>
+            create word
+          </button>
           {messages !== "" && (
             <div className={css.messageBox}>
               <i className="material-icons" style={{ color: "#EF4444" }}>

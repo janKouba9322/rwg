@@ -55,9 +55,7 @@ export const AddingWord = () => {
             type="text"
             value={newWord}
             onChange={(e) => {
-              setNewWord(
-                e.target.value.replace(/\s/g, "").replace(/[^\w ]/g, "")
-              );
+              setNewWord(e.target.value.replace(/\s/g, ""));
 
               setMessages("");
             }}

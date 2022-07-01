@@ -7,7 +7,7 @@
 }
 
 .description {
-    @apply desktop:w-[200%] h-[200px] resize-none bg-[#f8f8f8] rounded border-2 border-[#ccc] py-[12px] px-[20px]
+    @apply desktop:w-[60rem] h-[200px] resize-none bg-[#f8f8f8] rounded border-2 border-[#ccc] py-[12px] px-[20px]
 }
 
 .title {
@@ -24,7 +24,7 @@
 }
 
 .messageBox {
-    @apply h-[5rem] w-[40rem] border-2 border-red-500 bg-red-100 flex items-center p-2
+    @apply h-[5rem] desktop:w-[40rem] w-[20rem] border-2 border-red-500 bg-red-100 flex items-center p-2
 }
 
 .backButton {

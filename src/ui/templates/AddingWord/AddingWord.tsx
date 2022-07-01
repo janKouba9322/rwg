@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { doc, setDoc } from "@firebase/firestore";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../../../api/Firebase";
 import { Layout } from "../../layouts/Layout";
@@ -8,10 +9,11 @@ import css from "./AddingWord.module.css";
 
 export const AddingWord = () => {
   const [newWord, setNewWord] = useState("");
-
+  const router = useRouter();
   const [messages, setMessages] = useState("");
   const [newAuthor, setNewAuthor] = useState("");
   const [creatingLoader, setCreatingLoader] = useState(false);
+  const [newDescription, setNewDescription] = useState("");
 
   useEffect(() => {
     if (newWord.length >= 50) {
@@ -29,18 +31,21 @@ export const AddingWord = () => {
       await setDoc(doc(db, "words", `${newWord}`), {
         word: newWord,
         author: newAuthor,
+        description: newDescription,
         id: uuidv4(),
       });
       setNewWord("");
       setNewAuthor("");
       await setCreatingLoader(true);
-      location.reload();
     }
     if (newAuthor === "") {
       setMessages("Your nick also needs letters");
     }
     if (newWord === "") {
       setMessages("Your word has no letters! This is not how it works!");
+    }
+    if (newWord !== "" && newAuthor !== "") {
+      await router.push("/");
     }
   };
   return (
@@ -88,6 +93,10 @@ export const AddingWord = () => {
           <textarea
             placeholder="description (zatim nefacha)"
             className={css.description}
+            value={newDescription}
+            onChange={(e) => {
+              setNewDescription(e.target.value);
+            }}
           />
           <br />
           <button onClick={() => addDoc()} className={css.addWordButton}>

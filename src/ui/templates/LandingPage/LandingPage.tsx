@@ -9,6 +9,7 @@ export const LandingPage = () => {
   const [data, setData] = useState({
     author: "",
     word: "",
+    description: "",
   });
   const [refreshingLoader, setRefreshingLoader] = useState(false);
   const [loader, setLoader] = useState(true);
@@ -55,12 +56,19 @@ export const LandingPage = () => {
                 Created by: <span>Author of the random word</span>
               </h2>
             )}
+            <details>
+              <summary>Description</summary>
+              {data.description === "" && <p>No description</p>}
+              {!data.description && data.description !== "" && (
+                <p>No description</p>
+              )}
+              {data.description && <p>{data.description}</p>}
+            </details>
             {data.author !== "" && (
               <h2>
                 Created by: <span>{data.author}</span>
               </h2>
             )}
-
             <h2>Number of words: {items.length}</h2>
             <button
               className={css.btn}

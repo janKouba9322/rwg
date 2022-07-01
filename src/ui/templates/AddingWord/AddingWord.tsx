@@ -91,7 +91,7 @@ export const AddingWord = () => {
             maxLength={30}
           />
           <textarea
-            placeholder="description (zatim nefacha)"
+            placeholder="description (not necessary)"
             className={css.description}
             value={newDescription}
             onChange={(e) => {

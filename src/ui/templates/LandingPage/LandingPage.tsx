@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { getItems, items } from "../../../api/Firebase";
 import { Card } from "../../components/Card/Card";
 import { Layout } from "../../layouts/Layout";
@@ -9,7 +10,7 @@ export const LandingPage = () => {
   const [data, setData] = useState({
     author: "",
     word: "",
-    description: "",
+    description: "Some people add a description to their words. Try it too :)",
   });
   const [refreshingLoader, setRefreshingLoader] = useState(false);
   const [loader, setLoader] = useState(true);
@@ -25,7 +26,7 @@ export const LandingPage = () => {
       .then(() => {
         setLoader(false);
       });
-  }, []);
+  }, [useRouter()]);
   const handleClick = async () => {
     setData(items[Math.floor(Math.random() * items.length)]);
   };

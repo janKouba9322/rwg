@@ -3,7 +3,7 @@ import { doc, setDoc } from "@firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
-import { db } from "../../../api/Firebase";
+import { db, items } from "../../../api/Firebase";
 import { Layout } from "../../layouts/Layout";
 import css from "./AddingWord.module.css";
 
@@ -27,6 +27,11 @@ export const AddingWord = () => {
   }, [newAuthor]);
 
   const addDoc = async () => {
+    for (let i = 0; i < items.length; i++) {
+      if (newWord === items[i].word) {
+        return setMessages("This word already exists");
+      }
+    }
     if (newWord !== "" && newAuthor !== "") {
       await setDoc(doc(db, "words", `${newWord}`), {
         word: newWord,
@@ -46,6 +51,7 @@ export const AddingWord = () => {
     }
     if (newWord !== "" && newAuthor !== "") {
       await router.push("/");
+      location.reload();
     }
   };
   return (

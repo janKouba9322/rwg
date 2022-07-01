@@ -28,7 +28,7 @@ export const AddingWord = () => {
 
   const addDoc = async () => {
     for (let i = 0; i < items.length; i++) {
-      if (newWord === items[i].word) {
+      if (newWord.toLowerCase() === items[i].word.toLowerCase()) {
         return setMessages("This word already exists");
       }
     }
@@ -110,7 +110,11 @@ export const AddingWord = () => {
           </button>
           {messages !== "" && (
             <div className={css.messageBox}>
-              <i className="material-icons" style={{ color: "#EF4444" }}>
+              <i
+                className="material-icons"
+                style={{ color: "#EF4444" }}
+                translate="no"
+              >
                 error
               </i>
               <h3 className={css.messages}>{messages}</h3>

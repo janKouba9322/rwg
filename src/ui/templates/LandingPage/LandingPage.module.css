@@ -16,3 +16,11 @@
     @apply text-[2rem];
     word-break: break-all;
 }
+
+.description {
+    word-break: break-all;
+}
+
+.descriptionBox {
+    @apply border-2 border-gray-400 p-3 text-start mt-2 bg-[#f8f8f8] text-gray-900
+}

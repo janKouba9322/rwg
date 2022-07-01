@@ -49,7 +49,9 @@ export const LandingPage = () => {
             )}
             {data.word !== "" && (
               <h1>
-                <span className={css.randomWord}>{data.word}</span>
+                <span translate="no" className={css.randomWord}>
+                  {data.word}
+                </span>
               </h1>
             )}
             {data.author === "" && (
@@ -59,15 +61,19 @@ export const LandingPage = () => {
             )}
             <details>
               <summary>Description</summary>
-              {data.description === "" && <p>No description</p>}
-              {!data.description && data.description !== "" && (
-                <p>No description</p>
-              )}
-              {data.description && <p>{data.description}</p>}
+              <div className={css.descriptionBox}>
+                {data.description === "" && <p>No description</p>}
+                {!data.description && data.description !== "" && (
+                  <p>No description</p>
+                )}
+                {data.description && (
+                  <p className={css.description}>{data.description}</p>
+                )}
+              </div>
             </details>
             {data.author !== "" && (
               <h2>
-                Created by: <span>{data.author}</span>
+                Created by: <span translate="no">{data.author}</span>
               </h2>
             )}
             <h2>Number of words: {items.length}</h2>
@@ -84,7 +90,9 @@ export const LandingPage = () => {
         )}
 
         {refreshingLoader === true && <p>Refreshing...</p>}
-        <p>by: 21st Century</p>
+        <p>
+          by: <span translate="no">21st Century</span>
+        </p>
       </Card>
     </Layout>
   );

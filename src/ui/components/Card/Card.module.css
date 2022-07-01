@@ -1,4 +1,4 @@
 .container {
-    @apply w-[20rem] h-screen text-center flex-col items-center gap-10
+    @apply desktop:w-[40rem] w-[20rem] h-screen text-center flex-col items-center gap-10
 }
 

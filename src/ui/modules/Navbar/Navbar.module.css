@@ -1,5 +1,5 @@
 .container {
-    @apply w-screen h-[7rem] flex flex-row bg-gray-700 items-center justify-between
+    @apply w-screen h-[7rem] min-h-[7rem] flex flex-row bg-gray-700 items-center justify-between
 }
 
 .newWordButton {
@@ -17,7 +17,7 @@
 }
 
 .menuItem {
-    @apply w-screen h-[3rem] bg-black text-white p-2;
+    @apply w-screen h-[4rem] bg-black text-white p-3;
     @apply hover:cursor-pointer hover:bg-red-300 ease-in-out duration-150 align-middle
 }
 

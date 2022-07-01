@@ -14,7 +14,7 @@ export const Navbar = () => {
   };
   return (
     <>
-      <div className={css.container}>
+      <div className={css.container} translate="no">
         <button
           className={css.hamburgerBox}
           style={{ color: menuOpened ? "#FCA5A5" : "white" }}
@@ -34,7 +34,7 @@ export const Navbar = () => {
         </Link>
       </div>
       {menuOpened === true && (
-        <ul>
+        <ul translate="yes">
           <li className={css.menuItem}>About us</li>
           <li className={css.menuItem}>Premium</li>
           <li className={css.menuItem}>Info</li>

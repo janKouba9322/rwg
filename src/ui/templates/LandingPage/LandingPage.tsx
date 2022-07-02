@@ -12,23 +12,27 @@ export const LandingPage = () => {
     word: "",
     description: "Some people add a description to their words. Try it too :)",
   });
-  const [refreshingLoader, setRefreshingLoader] = useState(false);
+
   const [loader, setLoader] = useState(true);
-
+  const [messages, setMessages] = useState("Loading...");
+  const fetchData = async () => {
+    await setMessages("Loading...");
+    await setLoader(true);
+    await getItems();
+    if (items.length === 0) {
+      setTimeout(() => {
+        setMessages("Low wifi, can not fetch data from server");
+      }, 5000);
+    }
+    if (items.length !== 0) {
+      setLoader(false);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      await setLoader(true);
-      await getItems();
-    };
-
-    fetchData()
-      .catch(console.error)
-      .then(() => {
-        setLoader(false);
-      });
+    fetchData().catch();
   }, [useRouter()]);
   const handleClick = async () => {
-    setData(items[Math.floor(Math.random() * items.length)]);
+    await setData(items[Math.floor(Math.random() * items.length)]);
   };
 
   return (
@@ -36,25 +40,25 @@ export const LandingPage = () => {
       <Navbar />
       <Card>
         <h1 className={css.title}>Get random word</h1>
-        {loader === true && refreshingLoader === false && <p>Loading...</p>}
-        {loader === false && refreshingLoader === false && (
+        {loader === true && <p>{messages}</p>}
+        {loader === false && (
           <div className={css.container}>
             <button onClick={handleClick} className={css.btn}>
               Get
             </button>
-            {data.word === "" && (
+            {data && data.word === "" && (
               <h1>
                 <span className={css.randomWord}>Random word</span>
               </h1>
             )}
-            {data.word !== "" && (
+            {data && data.word !== "" && (
               <h1>
                 <span translate="no" className={css.randomWord}>
                   {data.word}
                 </span>
               </h1>
             )}
-            {data.author === "" && (
+            {data && data.author === "" && (
               <h2>
                 Created by: <span>Author of the random word</span>
               </h2>
@@ -62,16 +66,16 @@ export const LandingPage = () => {
             <details>
               <summary>Description</summary>
               <div className={css.descriptionBox}>
-                {data.description === "" && <p>No description</p>}
-                {!data.description && data.description !== "" && (
+                {data && data.description === "" && <p>No description</p>}
+                {data && !data.description && data.description !== "" && (
                   <p>No description</p>
                 )}
-                {data.description && (
+                {data && data.description && (
                   <p className={css.description}>{data.description}</p>
                 )}
               </div>
             </details>
-            {data.author !== "" && (
+            {data && data.author !== "" && (
               <h2>
                 Created by: <span translate="no">{data.author}</span>
               </h2>
@@ -80,16 +84,29 @@ export const LandingPage = () => {
             <button
               className={css.btn}
               onClick={async () => {
-                await setRefreshingLoader(true);
-                location.reload();
+                await fetchData().catch();
+                setData({
+                  author: "",
+                  word: "",
+                  description:
+                    "Some people add a description to their words. Try it too :)",
+                });
               }}
             >
               Refresh
             </button>
           </div>
         )}
-
-        {refreshingLoader === true && <p>Refreshing...</p>}
+        {messages === "Low wifi, can not fetch data from server" && (
+          <button
+            className={css.btn}
+            onClick={() => {
+              fetchData().catch();
+            }}
+          >
+            Try again
+          </button>
+        )}
         <p>
           by: <span translate="no">21st Century</span>
         </p>

@@ -3,7 +3,7 @@ import { doc, setDoc } from "@firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
-import { db, items } from "../../../api/Firebase";
+import { db, getItems, items } from "../../../api/Firebase";
 import { Layout } from "../../layouts/Layout";
 import css from "./AddingWord.module.css";
 
@@ -22,11 +22,19 @@ export const AddingWord = () => {
   }, [newWord]);
   useEffect(() => {
     if (newAuthor.length >= 30) {
-      setMessages("max characters in a nick is 50");
+      setMessages("max characters in a nick is 30");
     }
   }, [newAuthor]);
 
   const addDoc = async () => {
+    await getItems();
+    if (items.length === 0) {
+      await setCreatingLoader(true);
+      return setTimeout(() => {
+        setMessages("Creating failed, try better WIFI");
+        setCreatingLoader(false);
+      }, 3000);
+    }
     for (let i = 0; i < items.length; i++) {
       if (newWord.toLowerCase() === items[i].word.toLowerCase()) {
         return setMessages("This word already exists");

@@ -14,6 +14,7 @@ export const AddingWord = () => {
   const [newAuthor, setNewAuthor] = useState("");
   const [creatingLoader, setCreatingLoader] = useState(false);
   const [newDescription, setNewDescription] = useState("");
+  const numberOfWords = items.length;
 
   useEffect(() => {
     if (newWord.length >= 50) {
@@ -27,9 +28,13 @@ export const AddingWord = () => {
   }, [newAuthor]);
 
   const addDoc = async () => {
+    setMessages("");
+    await setCreatingLoader(true);
+    for (let i = 0; i < numberOfWords; i++) {
+      await items.pop();
+    }
     await getItems();
     if (items.length === 0) {
-      await setCreatingLoader(true);
       return setTimeout(() => {
         setMessages("Creating failed, try better WIFI");
         setCreatingLoader(false);
@@ -37,6 +42,7 @@ export const AddingWord = () => {
     }
     for (let i = 0; i < items.length; i++) {
       if (newWord.toLowerCase() === items[i].word.toLowerCase()) {
+        setCreatingLoader(false);
         return setMessages("This word already exists");
       }
     }
@@ -53,9 +59,11 @@ export const AddingWord = () => {
     }
     if (newAuthor === "") {
       setMessages("Your nick also needs letters");
+      setCreatingLoader(false);
     }
     if (newWord === "") {
       setMessages("Your word has no letters! This is not how it works!");
+      setCreatingLoader(false);
     }
     if (newWord !== "" && newAuthor !== "") {
       await router.push("/");

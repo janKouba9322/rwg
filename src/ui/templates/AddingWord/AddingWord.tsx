@@ -40,31 +40,36 @@ export const AddingWord = () => {
         setCreatingLoader(false);
       }, 3000);
     }
+    if (newWord === "") {
+      setMessages("Your word has no letters! This is not how it works!");
+      return setCreatingLoader(false);
+    }
+    if (newAuthor.trim() === "") {
+      setMessages("Your nick also needs letters");
+      return setCreatingLoader(false);
+    }
+
     for (let i = 0; i < items.length; i++) {
       if (newWord.toLowerCase() === items[i].word.toLowerCase()) {
         setCreatingLoader(false);
         return setMessages("This word already exists");
       }
     }
+    if (newAuthor !== "") {
+      await setNewAuthor(newAuthor.trim);
+    }
     if (newWord !== "" && newAuthor !== "") {
       await setDoc(doc(db, "words", `${newWord}`), {
         word: newWord,
         author: newAuthor,
-        description: newDescription,
+        description: newDescription.trim(),
         id: uuidv4(),
       });
       setNewWord("");
       setNewAuthor("");
       await setCreatingLoader(true);
     }
-    if (newAuthor === "") {
-      setMessages("Your nick also needs letters");
-      setCreatingLoader(false);
-    }
-    if (newWord === "") {
-      setMessages("Your word has no letters! This is not how it works!");
-      setCreatingLoader(false);
-    }
+
     if (newWord !== "" && newAuthor !== "") {
       await router.push("/");
       location.reload();
@@ -106,7 +111,7 @@ export const AddingWord = () => {
             value={newAuthor}
             placeholder="your nickname..."
             onChange={(e) => {
-              setNewAuthor(e.target.value.trim());
+              setNewAuthor(e.target.value);
               setMessages("");
             }}
             onKeyPress={(e) => e.key === "Enter" && addDoc()}

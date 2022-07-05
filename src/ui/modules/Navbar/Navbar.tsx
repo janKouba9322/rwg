@@ -20,11 +20,7 @@ export const Navbar = () => {
           style={{ color: menuOpened ? "#FCA5A5" : "white" }}
           onClick={Toggle}
         >
-          <i
-            className="material-icons "
-            id="hamburger"
-            style={{ fontSize: "3rem" }}
-          >
+          <i className="material-icons" style={{ fontSize: "3rem" }}>
             menu
           </i>
         </button>

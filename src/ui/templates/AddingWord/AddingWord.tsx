@@ -26,6 +26,11 @@ export const AddingWord = () => {
       setMessages("max characters in a nick is 30");
     }
   }, [newAuthor]);
+  useEffect(() => {
+    if (newDescription.length >= 1000) {
+      setMessages("max characters in a description is 1000");
+    }
+  }, [newDescription]);
 
   const addDoc = async () => {
     setMessages("");
@@ -72,7 +77,6 @@ export const AddingWord = () => {
 
     if (newWord !== "" && newAuthor !== "") {
       await router.push("/");
-      location.reload();
     }
   };
   return (
@@ -90,11 +94,6 @@ export const AddingWord = () => {
               setNewWord(e.target.value.replace(/\s/g, ""));
 
               setMessages("");
-            }}
-            onPaste={(e: any) => {
-              e.preventDefault();
-              setMessages("pasting disabled");
-              return false;
             }}
             maxLength={50}
             id="wordInput"
@@ -124,7 +123,9 @@ export const AddingWord = () => {
             onChange={(e) => {
               setNewDescription(e.target.value);
             }}
+            maxLength={1000}
           />
+          <p>{newDescription.length}/1000</p>
           <br />
           <button onClick={() => addDoc()} className={css.addWordButton}>
             create word
